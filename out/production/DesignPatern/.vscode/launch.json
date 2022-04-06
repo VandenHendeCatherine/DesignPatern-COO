@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "vmArgs": "--module-path C:/Dev/Cours/DesignPatern-COO/lib --add-modules=javafx.controls"
+        },
+        {
+            "type": "java",
+            "name": "Launch LocalLauncherEleve",
+            "request": "launch",
+            "mainClass": "launcher.localLauncher.LocalLauncherEleve",
+            "projectName": "DesignPatern-COO_867bbb89",
+            "vmArgs": "--module-path C:/Dev/Cours/DesignPatern-COO/lib --add-modules=javafx.controls"
+        },
+        {
+            "type": "java",
+            "name": "Launch LocalLauncherWithBuilder",
+            "request": "launch",
+            "mainClass": "launcher.withBuilder.local.LocalLauncherWithBuilder",
+            "projectName": "DesignPatern-COO_867bbb89",
+            "vmArgs": "--module-path C:/Dev/Cours/DesignPatern-COO/lib --add-modules=javafx.controls"
+        },
+        {
+            "type": "java",
+            "name": "Launch PieceModelFactory",
+            "request": "launch",
+            "mainClass": "model.noStrategy.pieces.PieceModelFactory",
+            "projectName": "DesignPatern-COO_867bbb89",
+            "vmArgs": "--module-path C:/Dev/Cours/DesignPatern-COO/lib --add-modules=javafx.controls"
+        },
+        {
+            "type": "java",
+            "name": "Launch MovementStrategyFactory",
+            "request": "launch",
+            "mainClass": "model.strategy.movementStrategy.MovementStrategyFactory",
+            "projectName": "DesignPatern-COO_867bbb89",
+            "vmArgs": "--module-path C:/Dev/Cours/DesignPatern-COO/lib --add-modules=javafx.controls"
+        }
+    ]
+}
