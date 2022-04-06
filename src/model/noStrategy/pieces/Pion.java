@@ -15,7 +15,7 @@ import src.shared.PieceSquareColor;
  * @author francoise.perrin - Alain BECKER
  * Inspiration Jacques SARAYDARYAN, Adrien GUENARD*
  */
-public class Pion extends AbstractPiece {
+public class Pion extends AbstractPion {
 	
 	/**
 	 * @param couleur
@@ -24,15 +24,6 @@ public class Pion extends AbstractPiece {
 	public Pion(PieceSquareColor couleur, ModelCoord coord) {
 		super(couleur, coord);
 
-	}
-	@Override
-	public ModelCoord getCoord() {
-		return getCoord();
-	}
-
-	@Override
-	public PieceSquareColor getCouleur() {
-		return getCouleur();
 	}
 
 	/* (non-Javadoc)
@@ -90,21 +81,6 @@ public class Pion extends AbstractPiece {
 	 * puisqu'il se déplace sur une case adjacente
 	 * sauf pour le 1er coup où il se déplace de 2 cases
 	 */
-	@Override
-	public List<ModelCoord> getMoveItinerary(ModelCoord finalCoord) {
-		int yFinal = 8 - finalCoord.getLigne();
-		List<ModelCoord> ret = Collections.emptyList(); 
-		if (this.getY()==yFinal-2 || this.getY()==yFinal+2){
-			ret = new LinkedList<ModelCoord>();
-
-			int yEtape = (this.getY() + yFinal) / 2;			// Y est la ligne entre départ et arrivée
-			ModelCoord coordEtape = new ModelCoord((char)('a'+this.getX()), (8-yEtape));	// et X est dans la même colonne
-
-			ret.add(coordEtape);
-		}
-		return ret;
-	}
-
 
 
 
@@ -112,14 +88,4 @@ public class Pion extends AbstractPiece {
 	 * @see model.AbstractPiece#movePiece(int, int)
 	 * gère le code de retour lorsqu'il faut promouvoir le pion
 	 */
-	@Override
-	public ActionType doMove(ModelCoord finalCoord){
-		ActionType ret = ActionType.UNKNOWN;
-		ret = super.doMove(finalCoord);
-
-		if(this.getY() == ModelFactory.nbLigne.get()-1 || this.getY() == 0) {
-			ret = ActionType.PROMOTION;
-		}
-		return ret;
-	}
 }

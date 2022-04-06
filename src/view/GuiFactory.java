@@ -142,7 +142,7 @@ class PieceGUIFactory {
 		
 		nomImageFile = mapPieceImage.get(pieceType);
 		
-		pieceImageFile = g.getAbsolutePath()+"/src/images/" + nomImageFile;	// TODO - attention au chemin
+		pieceImageFile = g.getAbsolutePath()+"/images/" + nomImageFile;	// TODO - attention au chemin
 		try {
 			image = new Image(new FileInputStream(pieceImageFile));
 		} catch (FileNotFoundException e) {
