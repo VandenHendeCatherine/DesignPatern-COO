@@ -1,27 +1,21 @@
 package src.model.noStrategy.pieces;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import src.model.ModelFactory;
 import src.shared.ActionType;
 import src.shared.ModelCoord;
 import src.shared.PieceSquareColor;
-
 
 
 /**
  * @author francoise.perrin - Alain BECKER
  * Inspiration Jacques SARAYDARYAN, Adrien GUENARD*
  */
-public class Pion extends AbstractPion {
-	
+public class PionBlanc extends AbstractPion {
+
 	/**
 	 * @param couleur
 	 * @param coord
 	 */
-	public Pion(PieceSquareColor couleur, ModelCoord coord) {
+	public PionBlanc(PieceSquareColor couleur, ModelCoord coord) {
 		super(couleur, coord);
 
 	}
@@ -38,23 +32,11 @@ public class Pion extends AbstractPion {
 
 		// Déplacement d'1 case en diagonale avec prise
 		if (actionType == ActionType.TAKE) {
-			
-			// Vers le bas en diagonale
-			if (this.hasThisColor(PieceSquareColor.BLACK)) {
-				
-				if ((yFinal == this.getY()+1 && xFinal == this.getX()+1) 
-						|| (yFinal == this.getY()+1 && xFinal == this.getX()-1)) {
-					ret = true;
-				}
-			}
-			// vers le haut en diagonale
-			if (this.hasThisColor(PieceSquareColor.WHITE)) {
-				
 				if ((yFinal == this.getY()-1 && xFinal == this.getX()+1) 
 						|| (yFinal == this.getY()-1 && xFinal == this.getX()-1)) {
 					ret = true;
 				}
-			}	
+
 		}
 		// Déplacement vertical sans prise  
 		// d'1 case si le pion a déjà bougé, de 2 cases sinon
@@ -64,9 +46,7 @@ public class Pion extends AbstractPion {
 					&& (Math.abs(yFinal - this.getY()) <= 1 || 
 					(Math.abs(yFinal - this.getY()) <= 2 && !this.hasMoved()))) {
 
-				if ((this.hasThisColor(PieceSquareColor.BLACK) && (yFinal - this.getY() > 0))
-						|| (this.hasThisColor(PieceSquareColor.WHITE)
-								&& (yFinal - this.getY() < 0))) {
+				if (yFinal - this.getY() < 0) {
 					ret = true;
 				}
 				
@@ -75,17 +55,5 @@ public class Pion extends AbstractPion {
 		return ret;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.AbstractPiece#getMoveItinerary(int, int)
-	 * dans le cas du pion, il n'y a pas d'itinéraire
-	 * puisqu'il se déplace sur une case adjacente
-	 * sauf pour le 1er coup où il se déplace de 2 cases
-	 */
 
-
-
-	/* (non-Javadoc)
-	 * @see model.AbstractPiece#movePiece(int, int)
-	 * gère le code de retour lorsqu'il faut promouvoir le pion
-	 */
 }
