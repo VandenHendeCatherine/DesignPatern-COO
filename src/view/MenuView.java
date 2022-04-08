@@ -2,6 +2,7 @@ package src.view;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javafx.event.ActionEvent;
@@ -21,134 +22,132 @@ import javafx.scene.control.ToggleGroup;
  * Cette classe est le menu du jeu d'échec
  */
 public class MenuView extends MenuBar {
+    private ReplayConversation replayConversation;
 
-	public MenuView () {
-		super();
+    public MenuView() {
+        super();
+        ResetCommand resetCommand = new ResetCommand(GuiConfig.paintStyle.get(), GuiConfig.whiteSquareColor.get(),GuiConfig.blackSquareColor.get());
+        replayConversation = new ReplayConversation(resetCommand);
+        this.getMenus().add(newMenuStyle());
+        this.getMenus().add(newMenuColor());
+        this.getMenus().add(newMenuEdit());
+    }
 
-		this.getMenus().add(newMenuStyle());
-		this.getMenus().add(newMenuColor());
-		this.getMenus().add(newMenuEdit());
-	}
+    private Menu newMenuColor() {
 
-	private Menu newMenuColor () {
+        Menu menu = new Menu("Couleur d'affichage");
+        MenuItem color1 = new MenuItem("Couleur cases blanches");
+        MenuItem color2 = new MenuItem("Couleur cases noires");
 
-		Menu menu = new Menu("Couleur d'affichage");
-		MenuItem color1 = new MenuItem("Couleur cases blanches");
-		MenuItem color2 = new MenuItem("Couleur cases noires");
+        color1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Dialog<Void> colorDialog = new Dialog<>();
+                colorDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
-		color1.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle (ActionEvent event) {
-				Dialog<Void> colorDialog = new Dialog<>();
-				colorDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+                ColorPicker colorPicker = new ColorPicker(GuiConfig.whiteSquareColor.get());
+                colorPicker.setOnAction(colorEvent -> {
+                    replayConversation.exec(() -> GuiConfig.whiteSquareColor.set(colorPicker.getValue()));
+                    colorDialog.close();
+                });
 
-				ColorPicker colorPicker = new ColorPicker(GuiConfig.whiteSquareColor.get());
-				colorPicker.setOnAction(colorEvent -> {
-										/* sans pattern Command */
-										GuiConfig.whiteSquareColor.set(colorPicker.getValue());
+                colorDialog.getDialogPane().setContent(colorPicker);
+                colorDialog.show();
+            }
+        });
 
-					
-					colorDialog.close();
-				});
+        color2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
 
-				colorDialog.getDialogPane().setContent(colorPicker);
-				colorDialog.show();
-			}
-		});
+                        Dialog<Void> colorDialog = new Dialog<>();
+                        colorDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
-		color2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle (ActionEvent event) {
-				Dialog<Void> colorDialog = new Dialog<>();
-				colorDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-				ColorPicker colorPicker = new ColorPicker(GuiConfig.blackSquareColor.get());
-				colorPicker.setOnAction(colorEvent -> {
-										/* sans pattern Command */
-										GuiConfig.blackSquareColor.set(colorPicker.getValue());
-
-					
-					colorDialog.close();
-				});
-
-				colorDialog.getDialogPane().setContent(colorPicker);
-				colorDialog.show();
-			}
-		});
-
-		menu.getItems().addAll(color1, color2);
-		return menu;
-	}
-
-	private Menu newMenuStyle () {
-
-		Menu menu = new Menu("Style d'affichage");
-		RadioMenuItem style1 = new RadioMenuItem("Dégradé");
-		RadioMenuItem style2 = new RadioMenuItem("Uni");
-		ToggleGroup btnGroup = new ToggleGroup();
-
-		style1.setToggleGroup(btnGroup);
-		style2.setToggleGroup(btnGroup);
-
-		Map<MenuItem, PaintStyle> btnMap = new HashMap<>();
-		btnMap.put(style1, PaintStyle.GRADIENT);
-		btnMap.put(style2, PaintStyle.SOLID);
-
-		Object style = GuiConfig.paintStyle.get();
-		btnMap.forEach((menuItem, paintstyle) -> {
-			if (paintstyle.equals(style)) {
-				((RadioMenuItem) menuItem).setSelected(true);
-			}
-		});
+                        ColorPicker colorPicker = new ColorPicker(GuiConfig.blackSquareColor.get());
+                        colorPicker.setOnAction(colorEvent -> {
+                            replayConversation.exec(() -> GuiConfig.blackSquareColor.set(colorPicker.getValue()));
 
 
-		style1.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle (ActionEvent event) {
-								 /* sans pattern Command */
-								GuiConfig.paintStyle.set(PaintStyle.GRADIENT);			
+                            colorDialog.close();
+                        });
 
-				
-			}
-		});
+                        colorDialog.getDialogPane().setContent(colorPicker);
+                        colorDialog.show();
 
-		style2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle (ActionEvent event) {
-								 /* sans pattern Command */
-								GuiConfig.paintStyle.set(PaintStyle.SOLID);			
+            }
+        });
 
-				
-			}
-		});
+        menu.getItems().addAll(color1, color2);
+        return menu;
+    }
 
-		menu.getItems().addAll(style1, style2);
-		return menu;
-	}
+    private Menu newMenuStyle() {
 
-	private Menu newMenuEdit () {
+        Menu menu = new Menu("Style d'affichage");
+        RadioMenuItem style1 = new RadioMenuItem("Dégradé");
+        RadioMenuItem style2 = new RadioMenuItem("Uni");
+        ToggleGroup btnGroup = new ToggleGroup();
 
-		Menu menu = new Menu("Gestion Commandes");
-		MenuItem undo = new MenuItem("undo");
-		MenuItem redo = new MenuItem("redo");
+        style1.setToggleGroup(btnGroup);
+        style2.setToggleGroup(btnGroup);
 
-		undo.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle (ActionEvent event) {
-				// TODO
-			}
-		});
+        Map<MenuItem, PaintStyle> btnMap = new HashMap<>();
+        btnMap.put(style1, PaintStyle.GRADIENT);
+        btnMap.put(style2, PaintStyle.SOLID);
 
-		redo.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle (ActionEvent event) {
-				// TODO
-			}
-		});
+        Object style = GuiConfig.paintStyle.get();
+        btnMap.forEach((menuItem, paintstyle) -> {
+            if (paintstyle.equals(style)) {
+                ((RadioMenuItem) menuItem).setSelected(true);
+            }
+        });
 
-		menu.getItems().addAll(undo, redo);
-		return menu;
-	}
+
+        style1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                replayConversation.exec(() -> GuiConfig.paintStyle.set(PaintStyle.GRADIENT));
+
+
+            }
+        });
+
+        style2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                replayConversation.exec(() -> GuiConfig.paintStyle.set(PaintStyle.SOLID));
+
+            }
+        });
+
+        menu.getItems().addAll(style1, style2);
+        return menu;
+    }
+
+    private Menu newMenuEdit() {
+
+        Menu menu = new Menu("Gestion Commandes");
+        MenuItem undo = new MenuItem("undo");
+        MenuItem redo = new MenuItem("redo");
+
+        undo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                replayConversation.undo();
+            }
+        });
+
+        redo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                replayConversation.redo();
+            }
+        });
+
+        menu.getItems().addAll(undo, redo);
+        return menu;
+    }
 
 
 }

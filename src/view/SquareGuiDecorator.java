@@ -19,22 +19,28 @@ public class SquareGuiDecorator extends BorderPane implements ChessSquareGui {
 
     private void changeListener() {
         GuiConfig.paintStyle.addListener(new ChangeListener<PaintStyle>() {
-                 @Override
-                 public void changed(ObservableValue<? extends PaintStyle> observable, PaintStyle oldValue, PaintStyle newValue) {
+             @Override
+             public void changed(ObservableValue<? extends PaintStyle> observable, PaintStyle oldValue, PaintStyle newValue) {
+                 if(newValue!=null){
                      paint();
                  }
              }
+         }
         );
         GuiConfig.blackSquareColor.addListener(new ChangeListener<Color>() {
             @Override
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                paint();
+                if(newValue!=null){
+                    paint();
+                }
             }
         });
         GuiConfig.whiteSquareColor.addListener(new ChangeListener<Color>() {
             @Override
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                paint();
+                if(newValue!=null){
+                    paint();
+                }
             }
         });
     }
