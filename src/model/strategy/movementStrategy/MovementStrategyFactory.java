@@ -1,12 +1,8 @@
 package src.model.strategy.movementStrategy;
 
 
-import src.shared.GameMode;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import static src.model.ModelFactory.gameMode;
 
 /**
  * @author francoiseperrin
@@ -30,7 +26,7 @@ public class MovementStrategyFactory {
 		mapStrategy.put("Reine", ReineMovementStrategy.newInstance());
 		mapStrategy.put("Roi", RoiMovementStrategy.newInstance());
 		mapStrategy.put("PionBlanc", PionBlancMovementStrategy.newInstance());
-		mapStrategy.put("PionNoir", PionNoirMovementStrategy.newInstance());
+		mapStrategy.put("PionNoir", PionNoirMovementStrategy.getInstance());
 	}
 
 

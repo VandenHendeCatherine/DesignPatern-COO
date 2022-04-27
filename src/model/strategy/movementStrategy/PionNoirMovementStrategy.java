@@ -4,7 +4,7 @@ import src.shared.ActionType;
 
 public class PionNoirMovementStrategy implements MovementStrategy{
     private static PionNoirMovementStrategy instance;
-    public static MovementStrategy newInstance() {
+    public static MovementStrategy getInstance() {
         if(instance == null ){
             instance = new PionNoirMovementStrategy();
         }
