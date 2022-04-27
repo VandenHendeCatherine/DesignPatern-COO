@@ -8,6 +8,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import src.model.noStrategy.pieces.ChessPieceModel;
 import src.model.noStrategy.pieces.PieceModelFactory;
+import src.model.strategy.movementStrategy.AbstractFactory;
+import src.model.strategy.movementStrategy.NormalStrategyFactory;
+import src.model.strategy.movementStrategy.StormStrategyFactory;
 import src.shared.GameMode;
 import src.shared.ModelCoord;
 import src.shared.PieceSquareColor;
@@ -18,6 +21,8 @@ public class ModelFactory {
 	public static IntegerProperty nbLigne = new SimpleIntegerProperty(8);
 	public static IntegerProperty nbColonne = new SimpleIntegerProperty(8);
 	public static ObjectProperty<GameMode> gameMode = new SimpleObjectProperty<GameMode>(GameMode.NORMAL);
+	public static NormalStrategyFactory normalStrategyFactory = new NormalStrategyFactory();
+	public static StormStrategyFactory stormStrategyFactory = new StormStrategyFactory();
 
 	public final static ObjectProperty<GameMode> gameModeProperty() {		
 		return gameMode;
@@ -46,8 +51,6 @@ public class ModelFactory {
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @param x
-	 * @param y
 	 * @return true si les coordonnées passées en paramètre sont dans les limites du
 	 *         plateau
 	 */
@@ -61,6 +64,11 @@ public class ModelFactory {
 		return ret;
 	}
 
-
+	public static AbstractFactory getFactory() {
+		if(gameMode.get().equals(GameMode.STORM)){
+			return stormStrategyFactory;
+		}
+		return normalStrategyFactory;
+	}
 
 }

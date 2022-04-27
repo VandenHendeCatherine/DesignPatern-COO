@@ -3,8 +3,10 @@ package src.model.noStrategy.pieces;
 import java.util.List;
 
 import src.model.ModelFactory;
+import src.model.strategy.movementStrategy.AbstractFactory;
 import src.model.strategy.movementStrategy.MovementStrategy;
 import src.model.strategy.movementStrategy.MovementStrategyFactory;
+import src.model.strategy.movementStrategy.NormalStrategyFactory;
 import src.shared.ActionType;
 import src.shared.GameMode;
 import src.shared.ModelCoord;
@@ -49,6 +51,8 @@ public abstract class  AbstractPiece implements ChessPieceModel {
 	private int yBeforeCapture = THERE_IS_NO_BEFORE;
 	private int xBeforeMove = THERE_IS_NO_BEFORE;
 	private int yBeforeMove = THERE_IS_NO_BEFORE;
+
+	private AbstractFactory factory;
 
 	@Override
 	public ModelCoord getCoord() {
@@ -173,12 +177,8 @@ public abstract class  AbstractPiece implements ChessPieceModel {
 	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType type){
 		int xFinal = finalCoord.getCol() -'a';
 		int yFinal = 8 - finalCoord.getLigne();
-		if(gameMode.get().equals(GameMode.STORM)){
-			strategy = MovementStrategyFactory.getMovementStrategy(x);
-		}
-		if(strategy == null){
-			strategy = MovementStrategyFactory.getMovementStrategy(getName());
-		}
+		factory = ModelFactory.getFactory();
+		strategy = factory.getMovementStrategy(getName(), x);
 		return strategy.isMoveOk(x, y, xFinal, yFinal, hasMoved, type);
 	}
 
