@@ -34,22 +34,6 @@ public class Cavalier extends AbstractPiece  {
 		return getCouleur();
 	}
 
-	@Override
-	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType actionType) {
-	
-		boolean ret = false;
-		int xFinal = finalCoord.getCol() -'a';
-		int yFinal = 8 - finalCoord.getLigne();
-		
-		if ((Math.abs(xFinal - this.getX()) + Math.abs(yFinal - this.getY())) == 3) {
-			
-			if ((Math.abs(xFinal - this.getX())<3) && (Math.abs(yFinal - this.getY())<3)) {
-				ret  = true;
-			}		
-		}	
-		
-		return ret;
-	}
 
 	/* (non-Javadoc)
 	 * @see model.AbstractPiece#getMoveItinerary(int, int)

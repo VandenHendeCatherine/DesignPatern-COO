@@ -20,13 +20,13 @@ public class MovementStrategyFactory {
 	private static Map<String, MovementStrategy> mapStrategy = new HashMap<String, MovementStrategy>();
 
 	static {	
-//		mapStrategy.put("Tour", TourMovementStrategy.newInstance());
-//		mapStrategy.put("Cavalier", CavalierMovementStrategy.newInstance());
-//		mapStrategy.put("Fou",  FouMovementStrategy.newInstance());
-//		mapStrategy.put("Reine", ReineMovementStrategy.newInstance());
-//		mapStrategy.put("Roi", RoiMovementStrategy.newInstance());
-//		mapStrategy.put("PionBlanc", PionBlancMovementStrategy.newInstance());
-//		mapStrategy.put("PionNoir", PionNoirMovementStrategy.newInstance());	
+		mapStrategy.put("Tour", TourMovementStrategy.newInstance());
+		mapStrategy.put("Cavalier", CavalierMovementStrategy.newInstance());
+		mapStrategy.put("Fou",  FouMovementStrategy.newInstance());
+		mapStrategy.put("Reine", ReineMovementStrategy.newInstance());
+		mapStrategy.put("Roi", RoiMovementStrategy.newInstance());
+		mapStrategy.put("PionBlanc", PionBlancMovementStrategy.newInstance());
+		mapStrategy.put("PionNoir", PionNoirMovementStrategy.newInstance());
 	}
 
 

@@ -29,18 +29,7 @@ public class Tour extends AbstractPiece {
 	public PieceSquareColor getCouleur() {
 		return getCouleur();
 	}
-	
-	@Override
-	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType actionType) {
-		int xFinal = finalCoord.getCol() -'a';
-		int yFinal = 8 - finalCoord.getLigne();
-		boolean ret = false;
-		
-		if ((yFinal == this.getY()) || (xFinal == this.getX())) {
-			ret = true;
-		}
-		return ret;
-	}
+
 
 	@Override
 	public List<ModelCoord> getMoveItinerary(ModelCoord finalCoord) {

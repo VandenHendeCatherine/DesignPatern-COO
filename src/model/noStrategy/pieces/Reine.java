@@ -32,15 +32,6 @@ public class Reine extends AbstractPiece {
 	public PieceSquareColor getCouleur() {
 		return getCouleur();
 	}
-
-	@Override
-	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType actionType) { 
-		int xFinal = finalCoord.getCol() -'a';
-		int yFinal = 8 - finalCoord.getLigne();
-		boolean ret = false;
-		ret = isAlgoDiagOk(xFinal, yFinal) || isAlgoLigneOk(xFinal, yFinal);
-		return ret;
-	}
 	
 	private boolean isAlgoDiagOk(int xFinal, int yFinal) { 
 		boolean ret = false;

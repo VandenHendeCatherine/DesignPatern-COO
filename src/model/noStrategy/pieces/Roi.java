@@ -34,24 +34,6 @@ public class Roi extends AbstractPiece {
 	public PieceSquareColor getCouleur() {
 		return getCouleur();
 	}
-
-	@Override
-	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType actionType) {
-		int xFinal = finalCoord.getCol() -'a';
-		int yFinal = 8 - finalCoord.getLigne();
-		boolean ret = false;
-		
-		// cas général
-		if ((Math.abs(yFinal - this.getY()) <= 1)
-				&& (Math.abs(xFinal - this.getX()) <= 1)) {
-			ret = true;
-		}
-		
-		// Cas du roque
-		// TODO : implémenter
-		
-		return ret;
-	}
 	
 	@Override
 	public List<ModelCoord> getMoveItinerary(ModelCoord finalCoord) {

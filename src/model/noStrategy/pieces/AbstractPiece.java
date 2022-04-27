@@ -3,6 +3,8 @@ package src.model.noStrategy.pieces;
 import java.util.List;
 
 import src.model.ModelFactory;
+import src.model.strategy.movementStrategy.MovementStrategy;
+import src.model.strategy.movementStrategy.MovementStrategyFactory;
 import src.shared.ActionType;
 import src.shared.ModelCoord;
 import src.shared.PieceSquareColor;
@@ -33,6 +35,8 @@ public abstract class  AbstractPiece implements ChessPieceModel {
 	private PieceSquareColor pieceColor;
 	private boolean hasMoved;
 	private boolean hasMovedBeforeMove;
+
+	private MovementStrategy strategy;
 
 	/** Constante représentant l'absence d'"état antérieur" pour une pièce **/
 	private static final int THERE_IS_NO_BEFORE = -1;
@@ -164,7 +168,21 @@ public abstract class  AbstractPiece implements ChessPieceModel {
 	}
 
 	@Override
-	public abstract boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType type);
+	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType type){
+		int xFinal = finalCoord.getCol() -'a';
+		int yFinal = 8 - finalCoord.getLigne();
+		/*if(this.x=='a' || this.x=='h'){
+			strategy = MovementStrategyFactory.getMovementStrategy("Tour");
+		} else if(this.x=='b' || this.x=='g'){
+			strategy = MovementStrategyFactory.getMovementStrategy("Cavalier");
+		} else if(this.x=='c' || this.x=='f'){
+			strategy = MovementStrategyFactory.getMovementStrategy("Fou");
+		} else if(this.x=='d' || this.x=='e'){
+			strategy = MovementStrategyFactory.getMovementStrategy(getName());
+		}*/
+		strategy = MovementStrategyFactory.getMovementStrategy(getName());
+		return strategy.isMoveOk(x, y, xFinal, yFinal, hasMoved, type);
+	}
 
 	@Override
 	public abstract List<ModelCoord> getMoveItinerary(ModelCoord finalCoord);
