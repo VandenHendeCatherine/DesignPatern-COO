@@ -6,9 +6,11 @@ import src.model.ModelFactory;
 import src.model.strategy.movementStrategy.MovementStrategy;
 import src.model.strategy.movementStrategy.MovementStrategyFactory;
 import src.shared.ActionType;
+import src.shared.GameMode;
 import src.shared.ModelCoord;
 import src.shared.PieceSquareColor;
 
+import static src.model.ModelFactory.gameMode;
 
 
 /**
@@ -60,7 +62,7 @@ public abstract class  AbstractPiece implements ChessPieceModel {
 
 
 	/**
-	 * @param pieceColor
+	 *
 	 * @param coord
 	 */
 	public AbstractPiece(PieceSquareColor pieceSquareColor, ModelCoord coord){
@@ -171,16 +173,12 @@ public abstract class  AbstractPiece implements ChessPieceModel {
 	public boolean isAlgoMoveOk(ModelCoord finalCoord, ActionType type){
 		int xFinal = finalCoord.getCol() -'a';
 		int yFinal = 8 - finalCoord.getLigne();
-		/*if(this.x=='a' || this.x=='h'){
-			strategy = MovementStrategyFactory.getMovementStrategy("Tour");
-		} else if(this.x=='b' || this.x=='g'){
-			strategy = MovementStrategyFactory.getMovementStrategy("Cavalier");
-		} else if(this.x=='c' || this.x=='f'){
-			strategy = MovementStrategyFactory.getMovementStrategy("Fou");
-		} else if(this.x=='d' || this.x=='e'){
+		if(gameMode.get().equals(GameMode.STORM)){
+			strategy = MovementStrategyFactory.getMovementStrategy(x);
+		}
+		if(strategy == null){
 			strategy = MovementStrategyFactory.getMovementStrategy(getName());
-		}*/
-		strategy = MovementStrategyFactory.getMovementStrategy(getName());
+		}
 		return strategy.isMoveOk(x, y, xFinal, yFinal, hasMoved, type);
 	}
 
